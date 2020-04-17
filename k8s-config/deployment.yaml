@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: datahub-edge-data
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      component: edge
+  template:
+    metadata:
+      labels:
+        component: edge
+    spec:
+      containers:
+        - name: edge
+          image: ensaas/edge-sdk:v0.1.0
+          resources:
+            limits:
+              cpu: 50m
+              memory: 64Mi
+              ephemeral-storage: 128Mi
+            requests:
+              cpu: 50m
+              memory: 64Mi

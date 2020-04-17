@@ -3,7 +3,6 @@ import wisepaasdatahubedgesdk.Common.Constants as constant
 from wisepaasdatahubedgesdk.Model.Edge import EdgeAgentOptions, MQTTOptions, DCCSOptions, EdgeData, EdgeTag, EdgeStatus, EdgeDeviceStatus, EdgeConfig, NodeConfig, DeviceConfig, AnalogTagConfig, DiscreteTagConfig, TextTagConfig
 from wisepaasdatahubedgesdk.Common.Utils import RepeatedTimer
 import time
-import random
 
 # **
 # Datahub Connection Settings
@@ -11,7 +10,7 @@ import random
 options = EdgeAgentOptions(
     # MQTT reconnect interval seconds
     reconnectInterval=1,
-    nodeId='bd7610ba-e787-4131-b23e-cfa452185e08',
+    nodeId='90f25cf1-8e91-483f-ba38-bcc1630d73b9',      # Get from portal
     # If type is Device, DeviceId must be filled
     deviceId='deviceId',
     # Choice your edge is Gateway or Device, Default is Gateway
@@ -31,7 +30,7 @@ options = EdgeAgentOptions(
     ),
     DCCS=DCCSOptions(
         apiUrl="https://api-dccs-ensaas.sa.wise-paas.com/",         # DCCS API Url
-        credentialKey="omvoz8kb5lt71nr22vo4mlffps7jwrvd"  # Creadential key
+        credentialKey="q905zw0q1tdubjq2vbvim1g1s3fc9k1v"  # Creadential key
     )
 )
 
@@ -80,32 +79,75 @@ edge_agent.on_connected = handler_on_connected
 edge_agent.on_disconnected = handler_on_disconnected
 edge_agent.on_message = handler_on_message
 
+# **
+# * Uploads Node/Device/Tag Configs with Action Type (Create/Update/Delete).
+# **
+config = EdgeConfig()  # Create an EdgeConfig object
 
-def generate_data(data, device_id, tag_name, value):
-    tag = EdgeTag(device_id, tag_name, value)
-    data.tagList.append(tag)
+# Node config setting
+nodeConfig = NodeConfig(nodeType=constant.EdgeType['Gateway'])
+config.node = nodeConfig
 
+# Device config setting
+deviceConfig = DeviceConfig(
+    id='Device1',
+    name='Device1',
+    deviceType='Smart Device',
+    description='Device1'
+)
 
-def send_data(data):
-    edge_agent.sendData(data=data)
+config.node.deviceList.append(deviceConfig)
 
+# ### Analog Tag config setting
+analogTag = AnalogTagConfig(
+    name='ATag',
+    description='Random number tag',
+    readOnly=False,
+    arraySize=0,
+    spanHigh=1000,
+    spanLow=0,
+    engineerUnit='',
+    integerDisplayFormat=4,
+    fractionDisplayFormat=2
+)
+
+config.node.deviceList[0].analogTagList.append(analogTag)
+
+# ### Discrete Tag config setting
+discreteTag = DiscreteTagConfig(
+    name='DTag',
+    description='Discrete Tag',
+    readOnly=False,
+    arraySize=0,
+    state0='1',
+    state1='0',
+    state2=None,
+    state3=None,
+    state4=None,
+    state5=None,
+    state6=None,
+    state7=None
+)
+
+config.node.deviceList[0].discreteTagList.append(discreteTag)
+
+# ### Text Tag config setting
+textTag = TextTagConfig(
+    name='TextTag',
+    description='Text Tag',
+    readOnly=False,
+    arraySize=0
+)
+
+config.node.deviceList[0].textTagList.append(textTag)
 
 # Connect to the cloud
 edge_agent.connect()
 time.sleep(2)
 
-# Sending data
-while True:
-    data = EdgeData()
-    # Append the new tag value to the data
-    generate_data(data, 'Device1', 'ATag1', 200)
-    generate_data(data, 'Device1', 'BTag1', 300)
-    generate_data(data, 'Device1', 'DTag1', random.randint(0, 1))
-    generate_data(data, 'Device1', 'OEETag1', random.randint(0, 4))
-    generate_data(data, 'Device1', 'RandomTag1', random.uniform(0, 500))
-
-    send_data(data)
-    time.sleep(1)
+# ### Apply all settings (Create/Update/Delete)
+result = edge_agent.uploadConfig(
+    constant.ActionType['Create'], edgeConfig=config)
 
 # Drop the connection
 edge_agent.disconnect()

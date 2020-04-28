@@ -10,7 +10,7 @@ import time
 options = EdgeAgentOptions(
     # MQTT reconnect interval seconds
     reconnectInterval=1,
-    nodeId='90f25cf1-8e91-483f-ba38-bcc1630d73b9',      # Get from portal
+    nodeId='35c56cc4-7915-4dbe-a342-d4cfe83127ae',      # Get from portal
     # If type is Device, DeviceId must be filled
     deviceId='deviceId',
     # Choice your edge is Gateway or Device, Default is Gateway
@@ -29,8 +29,8 @@ options = EdgeAgentOptions(
         protocalType=constant.Protocol['TCP']
     ),
     DCCS=DCCSOptions(
-        apiUrl="https://api-dccs-ensaas.sa.wise-paas.com/",         # DCCS API Url
-        credentialKey="q905zw0q1tdubjq2vbvim1g1s3fc9k1v"  # Creadential key
+        apiUrl="https://api-dccs-ensaas.hz.wise-paas.com.cn/",         # DCCS API Url
+        credentialKey="3a6955c550f28374a00cd771dc0f8f8z"  # Creadential key
     )
 )
 
@@ -102,6 +102,48 @@ config.node.deviceList.append(deviceConfig)
 analogTag = AnalogTagConfig(
     name='ATag1',
     description='ATag 1',
+    readOnly=False,
+    arraySize=0,
+    spanHigh=1000,
+    spanLow=0,
+    engineerUnit='',
+    integerDisplayFormat=4,
+    fractionDisplayFormat=2
+)
+
+config.node.deviceList[0].analogTagList.append(analogTag)
+
+analogTag = AnalogTagConfig(
+    name='BTag1',
+    description='BTag 1',
+    readOnly=False,
+    arraySize=0,
+    spanHigh=1000,
+    spanLow=0,
+    engineerUnit='',
+    integerDisplayFormat=4,
+    fractionDisplayFormat=2
+)
+
+config.node.deviceList[0].analogTagList.append(analogTag)
+
+analogTag = AnalogTagConfig(
+    name='OEETag1',
+    description='OEETag 1',
+    readOnly=False,
+    arraySize=0,
+    spanHigh=1000,
+    spanLow=0,
+    engineerUnit='',
+    integerDisplayFormat=4,
+    fractionDisplayFormat=2
+)
+
+config.node.deviceList[0].analogTagList.append(analogTag)
+
+analogTag = AnalogTagConfig(
+    name='RandomTag1',
+    description='RandomTag 1',
     readOnly=False,
     arraySize=0,
     spanHigh=1000,

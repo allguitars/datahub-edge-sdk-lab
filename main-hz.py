@@ -92,7 +92,7 @@ edge_agent.on_message = handler_on_message
 edge_agent.connect()
 time.sleep(2)
 
-# Start sending data
+# Sending data
 while True:
     data = EdgeData()
     # Append the new tag value to the data

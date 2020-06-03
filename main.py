@@ -11,7 +11,7 @@ import random
 options = EdgeAgentOptions(
     # MQTT reconnect interval seconds
     reconnectInterval=1,
-    nodeId='90f25cf1-8e91-483f-ba38-bcc1630d73b9',
+    nodeId='bd7610ba-e787-4131-b23e-cfa452185e08',
     # If type is Device, DeviceId must be filled
     deviceId='deviceId',
     # Choice your edge is Gateway or Device, Default is Gateway
@@ -31,29 +31,27 @@ options = EdgeAgentOptions(
     ),
     DCCS=DCCSOptions(
         apiUrl="https://api-dccs-ensaas.sa.wise-paas.com/",         # DCCS API Url
-        credentialKey="q905zw0q1tdubjq2vbvim1g1s3fc9k1v"  # Creadential key
+        credentialKey="c49fe0af415c5b79d6ab10d1b13acfp1"  # Creadential key
     )
 )
 
 edge_agent = EdgeAgent(options=options)
 
 
+def generate_data(data, device_id, tag_name, value):
+    tag = EdgeTag(device_id, tag_name, value)
+    data.tagList.append(tag)
+
+
+def send_data(data):
+    edge_agent.sendData(data=data)
+
+
 def handler_on_connected(agent, isConnected):
     # Connected: when EdgeAgent is connected to IoTHub.
     print("Connected successfully")
-    # Sending data
-    for i in range(10):
-        data = EdgeData()
-        # Append the new tag value to the data
-        generate_data(data, 'Device1', 'ATag1', 200)
-        generate_data(data, 'Device1', 'BTag1', 300)
-        generate_data(data, 'Device1', 'DTag1', random.randint(0, 1))
-        generate_data(data, 'Device1', 'OEETag1', random.randint(0, 4))
-        generate_data(data, 'Device1', 'RandomTag1', random.uniform(0, 500))
 
-        send_data(data)
-        print('sleep')
-        time.sleep(1)
+    # TODO: Put data sending here
 
 
 def handler_on_disconnected(agent, isDisconnected):
@@ -93,32 +91,22 @@ edge_agent.on_connected = handler_on_connected
 edge_agent.on_disconnected = handler_on_disconnected
 edge_agent.on_message = handler_on_message
 
-
-def generate_data(data, device_id, tag_name, value):
-    tag = EdgeTag(device_id, tag_name, value)
-    data.tagList.append(tag)
-
-
-def send_data(data):
-    edge_agent.sendData(data=data)
-
-
 # Connect to the cloud
 edge_agent.connect()
 time.sleep(2)
 
-# # Sending data
-# while True:
-#     data = EdgeData()
-#     # Append the new tag value to the data
-#     generate_data(data, 'Device1', 'ATag1', 200)
-#     generate_data(data, 'Device1', 'BTag1', 300)
-#     generate_data(data, 'Device1', 'DTag1', random.randint(0, 1))
-#     generate_data(data, 'Device1', 'OEETag1', random.randint(0, 4))
-#     generate_data(data, 'Device1', 'RandomTag1', random.uniform(0, 500))
+# Sending data
+while True:
+    data = EdgeData()
+    # Append the new tag value to the data
+    generate_data(data, 'Device1', 'ATag1', 200)
+    generate_data(data, 'Device1', 'BTag1', 300)
+    generate_data(data, 'Device1', 'DTag1', random.randint(0, 1))
+    generate_data(data, 'Device1', 'OEETag1', random.randint(0, 4))
+    generate_data(data, 'Device1', 'RandomTag1', random.uniform(0, 500))
 
-#     send_data(data)
-#     time.sleep(1)
+    send_data(data)
+    time.sleep(1)
 
 # Drop the connection
 edge_agent.disconnect()

@@ -14,7 +14,8 @@ spec:
     spec:
       containers:
         - name: edge
-          image: ensaas/edge-sdk:v0.3.0-hz
+          image: ensaas/edge-sdk:v0.3.1
+          imagePullPolicy: Always
           resources:
             limits:
               cpu: 50m

@@ -4,6 +4,7 @@ from wisepaasdatahubedgesdk.Model.Edge import EdgeAgentOptions, MQTTOptions, DCC
 from wisepaasdatahubedgesdk.Common.Utils import RepeatedTimer
 import time
 import random
+import datetime
 
 # **
 # Datahub Connection Settings
@@ -11,7 +12,8 @@ import random
 options = EdgeAgentOptions(
     # MQTT reconnect interval seconds
     reconnectInterval=1,
-    nodeId='bd7610ba-e787-4131-b23e-cfa452185e08',
+    # nodeId='bd7610ba-e787-4131-b23e-cfa452185e08',
+    nodeId='97dcf631-b3f0-436d-9c42-b9c446d7f3f2',
     # If type is Device, DeviceId must be filled
     deviceId='deviceId',
     # Choice your edge is Gateway or Device, Default is Gateway
@@ -31,7 +33,8 @@ options = EdgeAgentOptions(
     ),
     DCCS=DCCSOptions(
         apiUrl="https://api-dccs-ensaas.sa.wise-paas.com/",         # DCCS API Url
-        credentialKey="c49fe0af415c5b79d6ab10d1b13acfp1"  # Creadential key
+        # credentialKey="c49fe0af415c5b79d6ab10d1b13acfp1"  # Creadential key
+        credentialKey="338dafad15cdabb7d288dd3682b266eh"  # Creadential key
     )
 )
 
@@ -104,6 +107,8 @@ while True:
     generate_data(data, 'Device1', 'DTag1', random.randint(0, 1))
     generate_data(data, 'Device1', 'OEETag1', random.randint(0, 4))
     generate_data(data, 'Device1', 'RandomTag1', random.uniform(0, 500))
+
+    # data.timestamp = datetime.datetime.now()
 
     send_data(data)
     time.sleep(1)

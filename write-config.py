@@ -10,7 +10,7 @@ import time
 options = EdgeAgentOptions(
     # MQTT reconnect interval seconds
     reconnectInterval=1,
-    nodeId='90f25cf1-8e91-483f-ba38-bcc1630d73b9',      # Get from portal
+    nodeId='97dcf631-b3f0-436d-9c42-b9c446d7f3f2',      # Get from portal
     # If type is Device, DeviceId must be filled
     deviceId='deviceId',
     # Choice your edge is Gateway or Device, Default is Gateway
@@ -30,7 +30,7 @@ options = EdgeAgentOptions(
     ),
     DCCS=DCCSOptions(
         apiUrl="https://api-dccs-ensaas.sa.wise-paas.com/",         # DCCS API Url
-        credentialKey="q905zw0q1tdubjq2vbvim1g1s3fc9k1v"  # Creadential key
+        credentialKey="d11abac832e100fa050d8bd81d3e4256"  # Creadential key
     )
 )
 
@@ -98,7 +98,7 @@ deviceConfig = DeviceConfig(
 
 config.node.deviceList.append(deviceConfig)
 
-# ### Analog Tag config setting
+# Analog Tag config setting
 analogTag = AnalogTagConfig(
     name='ATag1',
     description='ATag 1',
@@ -113,7 +113,7 @@ analogTag = AnalogTagConfig(
 
 config.node.deviceList[0].analogTagList.append(analogTag)
 
-# ### Discrete Tag config setting
+# Discrete Tag config setting
 discreteTag = DiscreteTagConfig(
     name='DTag1',
     description='DTag 1',
@@ -131,15 +131,15 @@ discreteTag = DiscreteTagConfig(
 
 config.node.deviceList[0].discreteTagList.append(discreteTag)
 
-# ### Text Tag config setting
-# textTag = TextTagConfig(
-#     name='TextTag',
-#     description='Text Tag',
-#     readOnly=False,
-#     arraySize=0
-# )
+# Text Tag config setting
+textTag = TextTagConfig(
+    name='TextTag',
+    description='Text Tag',
+    readOnly=False,
+    arraySize=0
+)
 
-# config.node.deviceList[0].textTagList.append(textTag)
+config.node.deviceList[0].textTagList.append(textTag)
 
 # Connect to the cloud
 edge_agent.connect()

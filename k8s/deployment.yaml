@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: edge
-          image: ensaas/edge-sdk:v0.3.1
+          image: ensaas/edge-sdk:v0.3.2
           imagePullPolicy: Always
           resources:
             limits:

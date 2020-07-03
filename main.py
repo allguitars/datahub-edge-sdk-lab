@@ -34,7 +34,7 @@ options = EdgeAgentOptions(
     DCCS=DCCSOptions(
         apiUrl="https://api-dccs-ensaas.sa.wise-paas.com/",         # DCCS API Url
         # credentialKey="c49fe0af415c5b79d6ab10d1b13acfp1"  # Creadential key
-        credentialKey="7fe679fc39290f8be08a559a1e0822c4"  # Creadential key
+        credentialKey="45bab44e7971402abd179103aec8e5al"  # Creadential key
     )
 )
 

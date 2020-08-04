@@ -10,7 +10,7 @@ import time
 options = EdgeAgentOptions(
     # MQTT reconnect interval seconds
     reconnectInterval=1,
-    nodeId='bd7610ba-e787-4131-b23e-cfa452185e08',      # Get from portal
+    nodeId='71b52ec1-2e0f-437a-8f79-32be8d45ecff',      # Get from portal
     # If type is Device, DeviceId must be filled
     deviceId='deviceId',
     # Choice your edge is Gateway or Device, Default is Gateway
@@ -30,7 +30,7 @@ options = EdgeAgentOptions(
     ),
     DCCS=DCCSOptions(
         apiUrl="https://api-dccs-ensaas.sa.wise-paas.com/",         # DCCS API Url
-        credentialKey="45bab44e7971402abd179103aec8e5al"  # Creadential key
+        credentialKey="fce6538e82e18a85a0560315652e03ti"  # Creadential key
     )
 )
 

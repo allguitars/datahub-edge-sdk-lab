@@ -1,10 +1,7 @@
-import time
 import tkinter
 from tkinter import ttk
 from tkinter import messagebox
-import string
 import random
-import threading
 
 from wisepaasdatahubedgesdk.EdgeAgent import EdgeAgent
 import wisepaasdatahubedgesdk.Common.Constants as constant

@@ -1,2 +1,3 @@
-venv/
-.vscode/
+venv
+venv_wsl
+.vscode
